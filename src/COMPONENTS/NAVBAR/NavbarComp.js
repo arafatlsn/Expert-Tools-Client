@@ -37,8 +37,8 @@ const NavbarComp = () => {
           <Link to={'/'} className='font-bold text-xl' href="/navbars">
             Pricing
           </Link>
-          <Link to={'/'} className='font-bold text-xl' href="/navbars">
-            Contact
+          <Link to={'/signin'} className='font-bold text-xl' href="/navbars">
+            SignIn
           </Link>
         </Navbar.Collapse>
       </Navbar>

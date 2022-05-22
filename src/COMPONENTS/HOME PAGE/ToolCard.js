@@ -16,8 +16,8 @@ const ToolCard = ({ el }) => {
         <div class="px-5 pb-5">
           <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white overflow-hidden h-[7ex] leading-[3.5ex]" title={name}>{name}</h5>
           <p className='text-[dimgray] h-[10ex] leading-[3.3ex] overflow-hidden'>Description: {description}</p>
-          <p className='text-deepDark'>Minimum Order: {minimum_order}</p>
-          <p className='text-deepDark'>Stock: {quantity}</p>
+          <p className='text-deepDark font-[600]'>Minimum Order: {minimum_order}</p>
+          <p className='text-deepDark font-[600]'>Stock: {quantity}</p>
           <div className='flex items-center justify-between'>
             <p className='text-deepDark text-2xl font-bold'>${price}</p>
             <Button className='uppercase font-bold flex items-center bg-deepDark hover:bg-black'>
