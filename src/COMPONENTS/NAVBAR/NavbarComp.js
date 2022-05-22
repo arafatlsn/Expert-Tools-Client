@@ -1,43 +1,45 @@
 import { Navbar } from 'flowbite-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavbarComp = () => {
   return (
-    <div>
+    <div className='py-[1rem]'>
       <Navbar
         fluid={true}
         rounded={true}
       >
-        <Navbar.Brand href="https://flowbite.com/">
+        <Link to={'/'} className='flex items-center'>
           <img
             src="expert-logo.jpg"
             className="mr-3 h-6 sm:h-9"
             alt="Flowbite Logo"
           />
-          <span className="uppercase self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          <span className="text-deepDark uppercase self-center whitespace-nowrap text-2xl font-[700] font-semibold dark:text-white">
             Expert Tools
           </span>
-        </Navbar.Brand>
+        </Link>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link
+          <Link
+          to={'/'} className='font-bold text-xl'
             href="/navbars"
             active={true}
           >
             Home
-          </Navbar.Link>
-          <Navbar.Link href="/navbars">
+          </Link>
+          <Link to={'/'} className='font-bold text-xl' href="/navbars">
             About
-          </Navbar.Link>
-          <Navbar.Link href="/navbars">
+          </Link>
+          <Link to={'/'} className='font-bold text-xl' href="/navbars">
             Services
-          </Navbar.Link>
-          <Navbar.Link href="/navbars">
+          </Link>
+          <Link to={'/'} className='font-bold text-xl' href="/navbars">
             Pricing
-          </Navbar.Link>
-          <Navbar.Link href="/navbars">
+          </Link>
+          <Link to={'/'} className='font-bold text-xl' href="/navbars">
             Contact
-          </Navbar.Link>
+          </Link>
         </Navbar.Collapse>
       </Navbar>
     </div>

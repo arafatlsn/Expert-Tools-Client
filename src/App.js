@@ -5,7 +5,7 @@ import NavbarComp from './COMPONENTS/NAVBAR/NavbarComp';
 
 function App() {
   return (
-    <div className='lg:w-[75%] mx-auto'>
+    <div className='lg:w-[75%] mx-auto' style={{fontFamily: 'Josefin Sans'}}>
       <NavbarComp></NavbarComp>
         <Routes>
           <Route path='/' element={<HomePage></HomePage>}></Route>
