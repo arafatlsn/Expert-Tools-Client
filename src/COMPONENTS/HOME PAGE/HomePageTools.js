@@ -16,7 +16,12 @@ const HomePageTools = () => {
 
   return (
     <div>
-      <ToolCard></ToolCard>
+      <h1 className='text-6xl font-[600] text-center text-deepDark my-[2rem]'>Our Products</h1>
+      <div className='grid lg:grid-cols-4 justify-center justify-items-center gap-[3rem]'>
+      {
+        toolsArr?.map(el => <ToolCard el={el}></ToolCard>)
+      }
+      </div>
     </div>
   );
 
