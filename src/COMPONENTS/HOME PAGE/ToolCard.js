@@ -1,10 +1,11 @@
 import { Button } from 'flowbite-react';
 import React from 'react';
 import { HiShoppingCart } from 'react-icons/hi'
+import { Link } from 'react-router-dom';
 
 const ToolCard = ({ el }) => {
 
-  const { name, img, description, price, minimum_order, quantity } = el;
+  const { _id, name, img, description, price, minimum_order, quantity } = el;
 
   return (
     <div className='w-[302px]'>
@@ -20,10 +21,10 @@ const ToolCard = ({ el }) => {
           <p className='text-deepDark font-[600]'>Stock: {quantity}</p>
           <div className='flex items-center justify-between'>
             <p className='text-deepDark text-2xl font-bold'>${price}</p>
-            <Button className='uppercase font-bold flex items-center bg-deepDark hover:bg-black'>
+            <Link to={`/tool/${_id}`} className='uppercase font-bold flex items-center px-[.8rem] rounded-lg py-[.4rem] bg-lightBlue text-secondary hover:text-deepDark'>
               <HiShoppingCart className="mr-2 h-5 w-5" />
               Purchase
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

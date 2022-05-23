@@ -1,9 +1,9 @@
-import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from './Firebase.init';
 
 const useFireBase = () => {
   // sign in with google 
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, userSignInGoogle, loadingSignInGoogle, errorSignInGoogle] = useSignInWithGoogle(auth);
 
   // sign in with email pass 
   const [
@@ -24,9 +24,10 @@ const useFireBase = () => {
   // update profile info 
   const [updateProfile, updatingUpdateProfile, errorUpdateProfile] = useUpdateProfile(auth);
 
-  console.log(userSignInEmailPass, errorSignInEmailPass?.message?.split(':')[1]?.split('/')[1]?.split(')')[0])
+  // load user 
+  const [user, loading, error] = useAuthState(auth);
 
-  return { signInWithGoogle, createUserWithEmailAndPassword, errorCreateEmailPass, updateProfile, signInWithEmailAndPassword, errorSignInEmailPass }
+  return { signInWithGoogle, createUserWithEmailAndPassword, errorCreateEmailPass, updateProfile, signInWithEmailAndPassword, errorSignInEmailPass, user }
 };
 
 export default useFireBase;
