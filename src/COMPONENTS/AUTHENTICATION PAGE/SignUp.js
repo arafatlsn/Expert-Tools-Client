@@ -5,17 +5,19 @@ import { IoPeopleSharp } from 'react-icons/io5'
 import { GrGoogle } from 'react-icons/gr'
 import useFireBase from '../FIREBASE/useFireBase';
 import { Link } from 'react-router-dom';
+import AlertToast from '../Toast/AlertToast';
+import ErrorComp from '../Error/ErrorComp';
 
 const SignUp = () => {
 
-  const { createUserWithEmailAndPassword, updateProfile } = useFireBase()
+  const { createUserWithEmailAndPassword, updateProfile, errorCreateEmailPass } = useFireBase()
 
   const [checked, setChecked] = useState(false);
 
   const { register, formState: { errors }, handleSubmit } = useForm();
 
   const onSubmit = async(data) => {
-    
+
     const name = data?.name;
     const email = data?.email;
     const password = data?.password;
@@ -109,6 +111,10 @@ const SignUp = () => {
             </div>
             <button type="submit" className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%]" disabled={!checked}><FaSignInAlt className='mr-[.5rem]' /> SignUp</button>
             </form>
+
+            {
+              errorCreateEmailPass && <ErrorComp message={errorCreateEmailPass?.message?.split(':')[1]?.split('/')[1]?.split(')')[0]}></ErrorComp>
+            }
 
             <p className='text-center mt-[11px]'>Back to <Link className='text-lightBlue underline' to={'/signin'}> SignIn</Link></p>
 
