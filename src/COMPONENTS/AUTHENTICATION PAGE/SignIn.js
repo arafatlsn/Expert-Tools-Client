@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { FaSignInAlt } from 'react-icons/fa'
 import { IoPeopleSharp } from 'react-icons/io5'
+import { GrGoogle } from 'react-icons/gr'
+import useFireBase from '../FIREBASE/useFireBase';
 
 const SignIn = () => {
+
+  const { signInWithGoogle } = useFireBase()
 
   const [checked, setChecked] = useState(false);
 
@@ -58,7 +62,7 @@ const SignIn = () => {
             </div>
 
             <div>
-
+              <button onClick={() => signInWithGoogle()} type="submit" className="flex justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%]"><GrGoogle className='mr-[.5rem]' /> SignIn with Google</button>
             </div>
 
             </div>
