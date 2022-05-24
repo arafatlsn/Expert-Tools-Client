@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { HiShoppingCart } from 'react-icons/hi'
 import PurchaseModal from './PurchaseModal';
+import ConfirmModal from '../SHARED/ConfirmModal';
 
 const PurChase = () => {
 
@@ -13,6 +14,14 @@ const PurChase = () => {
   const [getError, setGetError] = useState(false)
   const [clicked, setClicked] = useState(false);
   const [showModal, setShowModal] = useState(false)
+  const [confirmModal, setConfirmModal] = useState(false)
+  const [purchaseObj, setPurchaseObj] = useState({});
+
+  const pressOrder = async() => {
+
+    const { data } = await axios.post('http://localhost:5000/order', purchaseObj)
+
+  }
 
   const { data: tool, isLoading } = useQuery('tool', async() => {
     const url = `http://localhost:5000/tool?id=${id}`
@@ -95,7 +104,13 @@ const PurChase = () => {
       </div>
 
       {
-        showModal && <PurchaseModal tool={tool} getQuantity={getQuantity} setShowModal={setShowModal} ></PurchaseModal>
+        showModal && <PurchaseModal tool={tool} getQuantity={getQuantity} setShowModal={setShowModal} setConfirmModal={setConfirmModal} setPurchaseObj={setPurchaseObj} ></PurchaseModal>
+      }
+
+      {
+
+      confirmModal && <ConfirmModal clcikAction={pressOrder} setConfirmModal={setConfirmModal}></ConfirmModal>
+
       }
       
     </div>
