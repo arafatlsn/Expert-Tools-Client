@@ -4,7 +4,9 @@ import SignIn from './COMPONENTS/AUTHENTICATION PAGE/SignIn';
 import SignUp from './COMPONENTS/AUTHENTICATION PAGE/SignUp';
 import AddReview from './COMPONENTS/DASHBOARD/AddReview';
 import DashBoardPage from './COMPONENTS/DASHBOARD/DashBoardPage';
+import ManageAllOrders from './COMPONENTS/DASHBOARD/ManageAllOrders';
 import MyOrders from './COMPONENTS/DASHBOARD/MyOrders';
+import MyProfile from './COMPONENTS/DASHBOARD/MyProfile';
 import RequireAuth from './COMPONENTS/FIREBASE/RequireAuth';
 import HomePage from './COMPONENTS/HOME PAGE/HomePage';
 import NavbarComp from './COMPONENTS/NAVBAR/NavbarComp';
@@ -31,6 +33,8 @@ function App() {
               }>
                 <Route path='myorders' element={<MyOrders></MyOrders>}></Route>
                 <Route path='addreview' element={<AddReview></AddReview>}></Route>
+                <Route path='myprofile' element={<MyProfile></MyProfile>}></Route>
+                <Route path='manageallorders' element={<ManageAllOrders></ManageAllOrders>}></Route>
             </Route>
         </Routes>
     </div>

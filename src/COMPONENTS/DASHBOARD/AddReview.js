@@ -25,8 +25,7 @@ const AddReview = () => {
   };
 
   return (
-    <div className='lg:w-[60vw] mx-auto ml-[1rem]'>
-      <h1 className='text-4xl font-bold  text-center mt-[1rem] mb-[.8rem]'>Add Your Review</h1>
+    <div>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div id="textarea" className='mb-[1rem]'>

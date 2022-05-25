@@ -25,17 +25,23 @@ const DashBoardPage = () => {
                     </Link>
                   </li>
                   <li>
-                    <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <Link to={'/dashboard/myprofile'} class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span><CgProfile className='text-[1.4rem] text-deepDark'/></span>
                     <span class="ml-3 text-deepDark">My Profile</span>
-                    </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={'/dashboard/manageallorders'} class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span><HiShoppingCart className='text-[1.4rem] text-deepDark'/></span>
+                    <span class="ml-3 text-deepDark">Manage All Orders</span>
+                    </Link>
                   </li>
               </ul>
             </div>
           </aside>
 
       </div>
-      <div>
+      <div className='w-[60vw] mx-auto ml-[1rem]'>
           <Outlet></Outlet>
       </div>
     </div>
