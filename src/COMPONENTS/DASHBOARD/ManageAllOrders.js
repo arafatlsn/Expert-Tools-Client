@@ -29,6 +29,14 @@ const ManageAllOrders = () => {
     }
   };
 
+  const makeShipped = async() => {
+    const url = `http://localhost:5000/makeshipped?orderId=${orderId}`;
+    const { data } = await axios.put(url);
+    if(data?.modifiedCount){
+      allOrdersReFetch();
+    }
+  }
+
   return (
     <div>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -84,7 +92,8 @@ const ManageAllOrders = () => {
                   <td class="px-6 py-4">{el.paymentStatus}</td>
                   <td class="px-6 py-4 text-right">
                     <div>
-                      <button
+                      {
+                        !el.shipped ? <button
                         onClick={() => {
                           setShowModal(true);
                           setPaymentStatus(el.paymentStatus);
@@ -98,7 +107,13 @@ const ManageAllOrders = () => {
                         class="px-3 py-2 text-xs font-medium text-center text-white bg-yellow-300 rounded-lg hover:bg-yellow-400 mr-[.5rem]"
                       >
                         Pending
-                      </button>
+                      </button> : <p
+                        type="button"
+                        class="px-3 py-2 text-xs font-medium text-center text-white font-bold text-lg text-green-500 mr-[.5rem]"
+                      >
+                        Shipped
+                      </p>
+                      }
                     </div>
                   </td>
                 </tr>
@@ -112,6 +127,7 @@ const ManageAllOrders = () => {
           paymentStatus={paymentStatus}
           setShowModal={setShowModal}
           cancelOrder={cancelOrder}
+          makeShipped={makeShipped}
         ></PendingHandleModla>
       )}
     </div>

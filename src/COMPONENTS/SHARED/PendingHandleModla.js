@@ -2,7 +2,7 @@ import { Button, Modal } from 'flowbite-react';
 import React from 'react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
-const PendingHandleModla = ({ setShowModal, clcikAction, paymentStatus, cancelOrder }) => {
+const PendingHandleModla = ({ setShowModal, clcikAction, paymentStatus, cancelOrder, makeShipped }) => {
 
   return (
     <React.Fragment>
@@ -23,8 +23,8 @@ const PendingHandleModla = ({ setShowModal, clcikAction, paymentStatus, cancelOr
               color="green"
               disabled={paymentStatus === 'Not Paid'}
               onClick={() => {
-                clcikAction()
                 setShowModal(false)
+                makeShipped()
               }}
             >
               Shipped
