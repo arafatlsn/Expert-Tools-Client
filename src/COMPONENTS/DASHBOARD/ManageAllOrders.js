@@ -5,19 +5,29 @@ import useFireBase from "../FIREBASE/useFireBase";
 import PendingHandleModla from "../SHARED/PendingHandleModla";
 
 const ManageAllOrders = () => {
-  const { user } = useFireBase();
 
   const [showModal, setShowModal] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("");
+  const [orderId, setOrderId] = useState('');
+  const [toolId, setTooldId] = useState('');
+  const [orderQuantity, setOrderQuantity] = useState(0);
 
   const {
     data: myOrders,
     isLoading,
-    refetch: myOrdersReFetch,
+    refetch: allOrdersReFetch,
   } = useQuery("myOrders", async () => {
     const { data } = await axios.get(`http://localhost:5000/allorders`);
     return data;
   });
+
+  const cancelOrder = async () => {
+    const url = `http://localhost:5000/removeorder?toolId=${orderId}&prodId=${toolId}&orderCancelQantity=${orderQuantity}`;
+    const { data } = await axios.delete(url);
+    if (data.deletedCount) {
+      allOrdersReFetch();
+    }
+  };
 
   return (
     <div>
@@ -78,6 +88,11 @@ const ManageAllOrders = () => {
                         onClick={() => {
                           setShowModal(true);
                           setPaymentStatus(el.paymentStatus);
+                          setOrderId(el._id);
+                          setTooldId(el.toolId)
+                          setOrderQuantity(el.orderQuantity)
+
+
                         }}
                         type="button"
                         class="px-3 py-2 text-xs font-medium text-center text-white bg-yellow-300 rounded-lg hover:bg-yellow-400 mr-[.5rem]"
@@ -96,6 +111,7 @@ const ManageAllOrders = () => {
         <PendingHandleModla
           paymentStatus={paymentStatus}
           setShowModal={setShowModal}
+          cancelOrder={cancelOrder}
         ></PendingHandleModla>
       )}
     </div>
