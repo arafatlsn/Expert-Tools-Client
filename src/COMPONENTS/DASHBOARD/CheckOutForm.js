@@ -6,6 +6,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { AiOutlinePayCircle } from 'react-icons/ai'
 
 const CheckOutForm = ({ orderToolInfo }) => {
   const [errorMsg, setErrorMsg] = useState("");
@@ -111,8 +112,8 @@ const CheckOutForm = ({ orderToolInfo }) => {
             },
           }}
         />
-        <button type="submit" disabled={!stripe || !clientSecret}>
-          Pay
+        <button className='uppercase flex bg-lightBlue text-secondary hover:text-deepDark font-bold rounded-lg px-[2rem] py-[.5rem] mt-[2.5rem]' type="submit" disabled={!stripe || !clientSecret}>
+          <AiOutlinePayCircle className="mr-1 h-5 w-5"/> Payment
         </button>
       </form>
       <p>{errorMsg && errorMsg}</p>
