@@ -5,8 +5,13 @@ import { useParams } from 'react-router-dom';
 import { HiShoppingCart } from 'react-icons/hi'
 import PurchaseModal from './PurchaseModal';
 import ConfirmModal from '../SHARED/ConfirmModal';
+import useFireBase from '../FIREBASE/useFireBase';
+import { signOut } from 'firebase/auth';
+import auth from '../FIREBASE/Firebase.init';
 
 const PurChase = () => {
+
+  const { user } = useFireBase()
 
   const { id } = useParams();
 
@@ -18,9 +23,21 @@ const PurChase = () => {
   const [purchaseObj, setPurchaseObj] = useState({});
 
   const { data: tool, isLoading, refetch: singleTool } = useQuery('tool', async() => {
-    const url = `http://localhost:5000/tool?id=${id}`
-    const { data } = await axios.get(url);
+    try{
+      const url = `http://localhost:5000/tool?id=${id}`
+    const { data } = await axios.get(url, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt-token')}`,
+        userEmail: user.email
+      }
+    });
     return data
+    }
+    catch(error){
+      if(error.response.status === 401 || error.response.status === 403){
+        signOut(auth)
+      }
+    }
   })
 
   const pressOrder = async() => {

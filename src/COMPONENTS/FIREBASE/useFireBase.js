@@ -27,7 +27,7 @@ const useFireBase = () => {
   // load user 
   const [user, loading, error] = useAuthState(auth);
 
-  return { signInWithGoogle, createUserWithEmailAndPassword, errorCreateEmailPass, updateProfile, signInWithEmailAndPassword, errorSignInEmailPass, user }
+  return { signInWithGoogle, createUserWithEmailAndPassword, errorCreateEmailPass, updateProfile, signInWithEmailAndPassword, errorSignInEmailPass, user, loading }
 };
 
 export default useFireBase;

@@ -2,6 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignIn from './COMPONENTS/AUTHENTICATION PAGE/SignIn';
 import SignUp from './COMPONENTS/AUTHENTICATION PAGE/SignUp';
+import AddReview from './COMPONENTS/DASHBOARD/AddReview';
+import DashBoardPage from './COMPONENTS/DASHBOARD/DashBoardPage';
+import MyOrders from './COMPONENTS/DASHBOARD/MyOrders';
+import RequireAuth from './COMPONENTS/FIREBASE/RequireAuth';
 import HomePage from './COMPONENTS/HOME PAGE/HomePage';
 import NavbarComp from './COMPONENTS/NAVBAR/NavbarComp';
 import PurChase from './COMPONENTS/PURCHASE PAGE/PurChase';
@@ -14,7 +18,20 @@ function App() {
           <Route path='/' element={<HomePage></HomePage>}></Route>
           <Route path='/signin' element={<SignIn></SignIn>}></Route>
           <Route path='/signup' element={<SignUp></SignUp>}></Route>
-          <Route path='/tool/:id' element={<PurChase></PurChase>}></Route>
+          <Route path='/tool/:id' element={
+              <RequireAuth>
+                <PurChase></PurChase>
+              </RequireAuth>
+              }>
+          </Route>
+          <Route path='/dashboard' element={
+              <RequireAuth>
+                <DashBoardPage></DashBoardPage>
+              </RequireAuth>
+              }>
+                <Route path='myorders' element={<MyOrders></MyOrders>}></Route>
+                <Route path='addreview' element={<AddReview></AddReview>}></Route>
+            </Route>
         </Routes>
     </div>
   );

@@ -18,12 +18,13 @@ const PurchaseModal = ({ tool, getQuantity, setShowModal, setConfirmModal, setPu
     console.log(data)
     const email = data.emailAddress;
     const toolId = _id;
-    const name = data.fullName;
+    const fullName = data.fullName;
     const address = data.address;
     const phoneNumber = data.phoneNumber;
-    const orderQuantity = getQuantity
+    const orderQuantity = getQuantity;
+    const paymentStatus = 'Not Paid';
 
-    const toolObj = { toolId, email, name, address, phoneNumber, price, orderQuantity }
+    const toolObj = { name, img, toolId, email, fullName, address, phoneNumber, price, orderQuantity, paymentStatus }
     setPurchaseObj(toolObj)
     setConfirmModal(true)
     setShowModal(false)

@@ -6,10 +6,11 @@ import { GrGoogle } from 'react-icons/gr'
 import useFireBase from '../FIREBASE/useFireBase';
 import { Link } from 'react-router-dom';
 import ErrorComp from '../Error/ErrorComp';
+import axios from 'axios';
 
 const SignIn = () => {
 
-  const { signInWithGoogle, signInWithEmailAndPassword, errorSignInEmailPass } = useFireBase()
+  const { signInWithGoogle, signInWithEmailAndPassword, errorSignInEmailPass, user } = useFireBase()
 
   const [checked, setChecked] = useState(false);
 
@@ -22,6 +23,24 @@ const SignIn = () => {
     signInWithEmailAndPassword(email, password)
 
   };
+
+  if(user){
+
+    const userEmail = user.email;
+
+    const func = async() => {
+      const { data } = await axios.get(`http://localhost:5000/users`, {
+        headers: {
+          authorization: `Bearer ${userEmail}`
+        }
+      })
+      console.log(data)
+      localStorage.setItem('jwt-token', JSON.stringify(data?.token))
+    }
+
+    func()
+
+  }
 
 
   return (

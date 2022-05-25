@@ -35,9 +35,11 @@ const NavbarComp = () => {
           >
             Home
           </Link>
-          <Link to={'/'} className='font-bold text-xl' href="/navbars">
-            About
+          {
+            user && <Link to={'/dashboard'} className='font-bold text-xl' href="/navbars">
+            DashBoard
           </Link>
+          }
           <Link to={'/'} className='font-bold text-xl' href="/navbars">
             Services
           </Link>
