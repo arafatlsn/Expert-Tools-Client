@@ -7,6 +7,7 @@ import DashBoardPage from './COMPONENTS/DASHBOARD/DashBoardPage';
 import ManageAllOrders from './COMPONENTS/DASHBOARD/ManageAllOrders';
 import MyOrders from './COMPONENTS/DASHBOARD/MyOrders';
 import MyProfile from './COMPONENTS/DASHBOARD/MyProfile';
+import PaymentPage from './COMPONENTS/DASHBOARD/PaymentPage';
 import RequireAuth from './COMPONENTS/FIREBASE/RequireAuth';
 import HomePage from './COMPONENTS/HOME PAGE/HomePage';
 import NavbarComp from './COMPONENTS/NAVBAR/NavbarComp';
@@ -23,6 +24,12 @@ function App() {
           <Route path='/tool/:id' element={
               <RequireAuth>
                 <PurChase></PurChase>
+              </RequireAuth>
+              }>
+          </Route>
+          <Route path='/payment/:id' element={
+              <RequireAuth>
+                <PaymentPage></PaymentPage>
               </RequireAuth>
               }>
           </Route>
