@@ -5,6 +5,7 @@ import { CgProfile } from 'react-icons/cg'
 import { Link, Outlet } from 'react-router-dom';
 import { FaUsers } from 'react-icons/fa'
 import { MdAddShoppingCart } from 'react-icons/md'
+import { MdProductionQuantityLimits } from 'react-icons/md'
 
 const DashBoardPage = () => {
   return (
@@ -48,6 +49,12 @@ const DashBoardPage = () => {
                     <Link to={'/dashboard/addproduct'} class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span><MdAddShoppingCart className='text-[1.4rem] text-deepDark'/></span>
                     <span class="ml-3 text-deepDark">Add Product</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={'/dashboard/manageproducts'} class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span><MdProductionQuantityLimits className='text-[1.4rem] text-deepDark'/></span>
+                    <span class="ml-3 text-deepDark">Manage Products</span>
                     </Link>
                   </li>
               </ul>

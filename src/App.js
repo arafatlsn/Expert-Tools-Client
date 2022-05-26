@@ -7,6 +7,7 @@ import AddReview from './COMPONENTS/DASHBOARD/AddReview';
 import AllUsers from './COMPONENTS/DASHBOARD/AllUsers';
 import DashBoardPage from './COMPONENTS/DASHBOARD/DashBoardPage';
 import ManageAllOrders from './COMPONENTS/DASHBOARD/ManageAllOrders';
+import ManageProducts from './COMPONENTS/DASHBOARD/ManageProducts';
 import MyOrders from './COMPONENTS/DASHBOARD/MyOrders';
 import MyProfile from './COMPONENTS/DASHBOARD/MyProfile';
 import PaymentPage from './COMPONENTS/DASHBOARD/PaymentPage';
@@ -46,6 +47,7 @@ function App() {
                 <Route path='manageallorders' element={<ManageAllOrders></ManageAllOrders>}></Route>
                 <Route path='allusers' element={<AllUsers></AllUsers>}></Route>
                 <Route path='addproduct' element={<AddProduct></AddProduct>}></Route>
+                <Route path='manageproducts' element={<ManageProducts></ManageProducts>}></Route>
             </Route>
         </Routes>
     </div>
