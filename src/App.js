@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignIn from './COMPONENTS/AUTHENTICATION PAGE/SignIn';
 import SignUp from './COMPONENTS/AUTHENTICATION PAGE/SignUp';
+import AddProduct from './COMPONENTS/DASHBOARD/AddProduct';
 import AddReview from './COMPONENTS/DASHBOARD/AddReview';
 import AllUsers from './COMPONENTS/DASHBOARD/AllUsers';
 import DashBoardPage from './COMPONENTS/DASHBOARD/DashBoardPage';
@@ -44,6 +45,7 @@ function App() {
                 <Route index element={<MyProfile></MyProfile>}></Route>
                 <Route path='manageallorders' element={<ManageAllOrders></ManageAllOrders>}></Route>
                 <Route path='allusers' element={<AllUsers></AllUsers>}></Route>
+                <Route path='addproduct' element={<AddProduct></AddProduct>}></Route>
             </Route>
         </Routes>
     </div>
