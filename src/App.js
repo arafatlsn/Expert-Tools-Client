@@ -3,6 +3,7 @@ import './App.css';
 import SignIn from './COMPONENTS/AUTHENTICATION PAGE/SignIn';
 import SignUp from './COMPONENTS/AUTHENTICATION PAGE/SignUp';
 import AddReview from './COMPONENTS/DASHBOARD/AddReview';
+import AllUsers from './COMPONENTS/DASHBOARD/AllUsers';
 import DashBoardPage from './COMPONENTS/DASHBOARD/DashBoardPage';
 import ManageAllOrders from './COMPONENTS/DASHBOARD/ManageAllOrders';
 import MyOrders from './COMPONENTS/DASHBOARD/MyOrders';
@@ -40,8 +41,9 @@ function App() {
               }>
                 <Route path='myorders' element={<MyOrders></MyOrders>}></Route>
                 <Route path='addreview' element={<AddReview></AddReview>}></Route>
-                <Route path='myprofile' element={<MyProfile></MyProfile>}></Route>
+                <Route index element={<MyProfile></MyProfile>}></Route>
                 <Route path='manageallorders' element={<ManageAllOrders></ManageAllOrders>}></Route>
+                <Route path='allusers' element={<AllUsers></AllUsers>}></Route>
             </Route>
         </Routes>
     </div>

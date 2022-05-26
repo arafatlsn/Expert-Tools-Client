@@ -2,7 +2,7 @@ import { Button, Modal } from 'flowbite-react';
 import React from 'react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
-const ConfirmModal = ({ setConfirmModal, clcikAction }) => {
+const ConfirmModal = ({ setConfirmModal, clickAction }) => {
   return (
     <React.Fragment>
       <Modal
@@ -21,7 +21,7 @@ const ConfirmModal = ({ setConfirmModal, clcikAction }) => {
             <Button
               color="red"
               onClick={() => {
-                clcikAction()
+                clickAction()
                 setConfirmModal(false)
               }}
             >
