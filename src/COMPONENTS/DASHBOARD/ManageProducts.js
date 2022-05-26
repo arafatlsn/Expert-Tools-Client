@@ -1,24 +1,33 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { BsTrash } from 'react-icons/bs'
+import ConfirmModal from "../SHARED/ConfirmModal";
 
 const ManageProducts = () => {
+
+  const [confirmModal, setConfirmModal] = useState(false)
+  const [toolId, setTooldId] = useState('');
+
   const {
     data: allProducts,
     isLoading,
-    refetch: myOrdersReFetch,
+    refetch: allProductsFetch,
   } = useQuery("allProducts", async () => {
-    const { data } = await axios.get(
-      `http://localhost:5000/tools`
-    );
+    const { data } = await axios.get(`http://localhost:5000/tools`);
     return data;
   });
 
-  if(isLoading){
+  if (isLoading) {
     return;
   }
 
-  console.log(allProducts)
+  const removeProduct = async() => {
+    const { data } = await axios.delete(`http://localhost:5000/removetool?toold=${toolId}`);
+    if(data?.deletedCount){
+      allProductsFetch()
+    }
+  }
 
   return (
     <div>
@@ -42,9 +51,7 @@ const ManageProducts = () => {
               <th scope="col" class="px-6 py-3">
                 Price
               </th>
-              <th scope="col" class="px-6 py-3">
-                Status
-              </th>
+              <th scope="col" class="px-6 py-3"></th>
               <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Edit</span>
               </th>
@@ -69,21 +76,18 @@ const ManageProducts = () => {
                       : el.name}
                   </th>
                   <td class="px-6 py-4">{el.quantity}</td>
-                  <td class="px-6 py-4">
-                    ${el.price}
-                  </td>
+                  <td class="px-6 py-4">${el.price}</td>
                   <td class="px-6 py-4">{el.paymentStatus}</td>
                   <td class="px-6 py-4 text-right">
-                    {el.paymentStatus === "Not Paid" && (
-                      <div>
-                        <button
-                          type="button"
-                          class="px-3 py-2 text-xs font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 mr-[.5rem]"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    )}
+                    <button
+                      onClick={() =>{ 
+                        setConfirmModal(true)
+                        setTooldId(el._id)
+                      }}
+                      class="px-3 py-2 text-xs font-medium text-center text-white bg-red-200 rounded-lg hover:bg-red-300 mr-[.5rem]"
+                    >
+                      <BsTrash className="text-xl text-red-500"/>
+                    </button>
                   </td>
                 </tr>
               );
@@ -91,6 +95,9 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
+      {
+        confirmModal && <ConfirmModal setConfirmModal={setConfirmModal} clickAction={removeProduct} ></ConfirmModal>
+      }
     </div>
   );
 };
