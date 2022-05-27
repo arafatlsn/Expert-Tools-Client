@@ -2,22 +2,33 @@ import axios from 'axios';
 import { Label, Textarea } from 'flowbite-react';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import SuccessAlert from '../SHARED/SuccessAlert';
+import useFireBase from '../FIREBASE/useFireBase'
 
 const AddReview = () => {
 
-
-  const { register, handleSubmit } = useForm();
+  const { user } = useFireBase()
+  const { register, handleSubmit, reset } = useForm();
   const [text, setText] = useState('');
+  const [alert, setAlert] = useState(false);
 
   const onSubmit = data => {
     
     const review = text;
     const ratings = data.ratings;
-    const userReview = { review, ratings }
+    const reviewDate = new Date().toLocaleString().split(',')[0];
+    const userName = user?.displayName;
+    const userReview = { review, ratings, reviewDate, userName }
 
     const func = async() => {
       const { data } = await axios.post(`http://localhost:5000/addreview`, userReview);
-      console.log(data)
+      if(data.insertedId){
+        setAlert(true)
+        reset()
+        setTimeout(() => {
+          setAlert(false)
+        }, 5000)
+      }
     }
 
     func()
@@ -25,7 +36,7 @@ const AddReview = () => {
   };
 
   return (
-    <div>
+    <div className='mt-[.5rem]'>{alert && <SuccessAlert message={'Added a Review'}></SuccessAlert>}
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div id="textarea" className='mb-[1rem]'>

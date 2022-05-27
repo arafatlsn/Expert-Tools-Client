@@ -8,6 +8,7 @@ import ConfirmModal from '../SHARED/ConfirmModal';
 import useFireBase from '../FIREBASE/useFireBase';
 import { signOut } from 'firebase/auth';
 import auth from '../FIREBASE/Firebase.init';
+import SuccessAlert from '../SHARED/SuccessAlert';
 
 const PurChase = () => {
 
@@ -21,6 +22,7 @@ const PurChase = () => {
   const [showModal, setShowModal] = useState(false)
   const [confirmModal, setConfirmModal] = useState(false)
   const [purchaseObj, setPurchaseObj] = useState({});
+  const [alert, setAlert] = useState(false);
 
   const { data: tool, isLoading, refetch: singleTool } = useQuery('tool', async() => {
     try{
@@ -43,10 +45,13 @@ const PurChase = () => {
   const pressOrder = async() => {
 
     const id = purchaseObj.toolId;
-    console.log(purchaseObj)
     const { data } = await axios.post(`http://localhost:5000/order?id=${id}`, purchaseObj)
     if(data.updateTool?.modifiedCount){
       singleTool()
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 5000)
     }
 
   }
@@ -63,18 +68,16 @@ const PurChase = () => {
       setGetError(true)
       setClicked(true)
       setShowModal(true)
-      console.log('hello js')
     }
 
     else{
       setShowModal(true)
-      console.log('hello js')
     }
     
   }
 
   return (
-    <div>
+    <div>{alert && <SuccessAlert message={'Orderd an Item'}></SuccessAlert>}
       <div className='grid grid-cols-2 border p-[3rem]'>
         <div className='flex justify-center'>
           <img className='w-[538px] h-[538px] object-contain' src={img} alt="" />
@@ -108,6 +111,7 @@ const PurChase = () => {
             
             
             }} type="number" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+            defaultValue={minimum_order}
               />
 
               <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">How Much You Want?</label>
@@ -130,7 +134,7 @@ const PurChase = () => {
 
       {
 
-      confirmModal && <ConfirmModal clcikAction={pressOrder} setConfirmModal={setConfirmModal}></ConfirmModal>
+      confirmModal && <ConfirmModal clickAction={pressOrder} setConfirmModal={setConfirmModal}></ConfirmModal>
 
       }
       

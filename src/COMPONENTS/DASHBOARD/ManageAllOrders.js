@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import useFireBase from "../FIREBASE/useFireBase";
 import PendingHandleModla from "../SHARED/PendingHandleModla";
+import SuccessAlert from "../SHARED/SuccessAlert";
+
 
 const ManageAllOrders = () => {
 
@@ -11,6 +13,8 @@ const ManageAllOrders = () => {
   const [orderId, setOrderId] = useState('');
   const [toolId, setTooldId] = useState('');
   const [orderQuantity, setOrderQuantity] = useState(0);
+  const [alert, setAlert] = useState(false);
+  const [alertCancel, setAlertCancel] = useState(false);
 
   const {
     data: myOrders,
@@ -26,6 +30,10 @@ const ManageAllOrders = () => {
     const { data } = await axios.delete(url);
     if (data.deletedCount) {
       allOrdersReFetch();
+      setAlertCancel(true)
+      setTimeout(() => {
+        setAlertCancel(false)
+      }, 5000)
     }
   };
 
@@ -34,11 +42,17 @@ const ManageAllOrders = () => {
     const { data } = await axios.put(url);
     if(data?.modifiedCount){
       allOrdersReFetch();
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 5000)
     }
   }
 
   return (
     <div>
+      {alert && <SuccessAlert message={'Changed Status to Shipped'}></SuccessAlert>}
+      {alertCancel && <SuccessAlert message={'Cancelled an Unpaid Order'}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

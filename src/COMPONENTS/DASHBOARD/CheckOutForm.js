@@ -7,11 +7,14 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { AiOutlinePayCircle } from 'react-icons/ai'
+import SuccessAlert from '../SHARED/SuccessAlert'
+import ErrorComp from '../Error/ErrorComp'
 
 const CheckOutForm = ({ orderToolInfo }) => {
   const [errorMsg, setErrorMsg] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false)
 
   const  price  = orderToolInfo?.price;
   const fullName = orderToolInfo?.fullName;
@@ -60,7 +63,10 @@ const CheckOutForm = ({ orderToolInfo }) => {
     });
 
     setErrorMsg(error?.message || "");
-
+    error && setErrorAlert(true)
+    setTimeout(() => {
+      setErrorAlert(false)
+    }, 5000)
     // confirm card payment 
     const {paymentIntent, error: intentError} = await stripe.confirmCardPayment(
       clientSecret,
@@ -77,14 +83,22 @@ const CheckOutForm = ({ orderToolInfo }) => {
 
     if(intentError){
       setErrorMsg(intentError?.message)
+      setErrorAlert(true)
+      setTimeout(() => {
+        setErrorAlert(false)
+      }, 5000)
     }
     else{
       setErrorMsg('');
-      setSuccess(true);
 
       const func = async() => {
         const { data } = await axios.put(`http://localhost:5000/paymentsuccess?trxId=${paymentIntent.id}&toolId=${toolId}`)
-        console.log(data)
+        if(data?.modifiedCount){
+          setAlert(true);
+          setTimeout(() => {
+            setAlert(false)
+          }, 5000)
+        }
       }
       func()
 
@@ -94,7 +108,8 @@ const CheckOutForm = ({ orderToolInfo }) => {
   };
 
   return (
-    <div>
+    <div>{alert && <SuccessAlert message={'Payment Done'}></SuccessAlert>}
+    {errorAlert && <ErrorComp message={errorMsg}></ErrorComp>}
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
@@ -116,7 +131,6 @@ const CheckOutForm = ({ orderToolInfo }) => {
           <AiOutlinePayCircle className="mr-1 h-5 w-5"/> Payment
         </button>
       </form>
-      <p>{errorMsg && errorMsg}</p>
     </div>
   );
 };

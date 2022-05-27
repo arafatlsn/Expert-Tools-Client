@@ -16,7 +16,6 @@ const useHomeTools = () => {
     return;
   }
 
-  // console.log(homeTools)
   return { homeTools, homeToolsFetch }
 
 };

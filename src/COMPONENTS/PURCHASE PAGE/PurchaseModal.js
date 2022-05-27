@@ -23,7 +23,6 @@ const PurchaseModal = ({
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     const email = data.emailAddress;
     const toolId = _id;
     const fullName = data.fullName;

@@ -8,7 +8,7 @@ const CarouselComp = () => {
         <div className='w-[100%] h-[100%] relative'>
           <img
           className='w-[100%] h-[100%] object-cover absolute'
-            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+            src="banner1.png"
             alt="..."
           />
           <div className='absolute z-50 flex justify-items-center bottom-[15%] left-[42%] lg:left-[46%]'>
@@ -18,7 +18,7 @@ const CarouselComp = () => {
         <div className='w-[100%] h-[100%] relative'>
           <img
           className='w-[100%] h-[100%] object-cover absolute'
-            src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+            src="banner2.jpg"
             alt="..."
           />
           <div className='absolute z-50 flex justify-items-center bottom-[15%] left-[42%] lg:left-[46%]'>

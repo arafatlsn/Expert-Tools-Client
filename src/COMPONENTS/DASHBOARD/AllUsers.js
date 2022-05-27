@@ -3,11 +3,13 @@ import { Button } from "flowbite-react";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import ConfirmModal from '../SHARED/ConfirmModal'
+import SuccessAlert from "../SHARED/SuccessAlert";
 
 const AllUsers = () => {
 
   const [ confirmModal, setConfirmModal ] = useState(false);
   const [ makeAdminId, setAdminId ] = useState('')
+  const [alert, setAlert] = useState(false);
 
   const { data: allusers, isLoading, refetch: allUsersFetch } = useQuery('users', async() => {
     const { data } = await axios.get('http://localhost:5000/allusers');
@@ -20,17 +22,20 @@ const AllUsers = () => {
 
   const makeAdmin = async() => {
 
-    console.log(makeAdminId)
     const { data } = await axios.put(`http://localhost:5000/makeadmin?adminId=${makeAdminId}`);
     
     if(data.modifiedCount){
       allUsersFetch()
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 5000)
     }
 
   }
 
   return (
-    <div>
+    <div>{alert && <SuccessAlert message={'Made an Admin'}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

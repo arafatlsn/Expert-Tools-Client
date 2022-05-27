@@ -1,11 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import useFireBase from "../FIREBASE/useFireBase";
+import SuccessAlert from "../SHARED/SuccessAlert";
 
 const MyOrders = () => {
   const { user } = useFireBase();
+
+  const [alert, setAlert] = useState(false);
 
   const {
     data: myOrders,
@@ -22,18 +25,20 @@ const MyOrders = () => {
     return;
   }
 
-  console.log(myOrders);
-
   const cancelOrder = async (orderId, toolId, orderQuantity) => {
     const url = `http://localhost:5000/removeorder?toolId=${orderId}&prodId=${toolId}&orderCancelQantity=${orderQuantity}`;
     const { data } = await axios.delete(url);
     if (data.deletedCount) {
       myOrdersReFetch();
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false)
+      }, 5000)
     }
   };
 
   return (
-    <div>
+    <div>{alert && <SuccessAlert message={'Canceled an Order'}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

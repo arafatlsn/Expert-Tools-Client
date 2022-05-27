@@ -28,10 +28,8 @@ const PaymentPage = () => {
     return;
   }
 
-  console.log(orderToolInfo);
   const { img, name, fullName, orderQuantity, paymentStatus, price, phoneNumber, address } = orderToolInfo;
 
-  console.log(orderToolInfo)
 
   return (
     <div className="grid grid-cols-2">

@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { BsTrash } from 'react-icons/bs'
 import ConfirmModal from "../SHARED/ConfirmModal";
+import SuccessAlert from "../SHARED/SuccessAlert";
 
 const ManageProducts = () => {
 
   const [confirmModal, setConfirmModal] = useState(false)
   const [toolId, setTooldId] = useState('');
+  const [alert, setAlert] = useState(false);
 
   const {
     data: allProducts,
@@ -26,11 +28,15 @@ const ManageProducts = () => {
     const { data } = await axios.delete(`http://localhost:5000/removetool?toold=${toolId}`);
     if(data?.deletedCount){
       allProductsFetch()
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 5000)
     }
   }
 
   return (
-    <div>
+    <div>{alert && <SuccessAlert message={'Remove a Product'}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

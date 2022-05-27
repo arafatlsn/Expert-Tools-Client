@@ -2,10 +2,11 @@ import axios from "axios";
 import { Label, Textarea } from "flowbite-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import SuccessAlert from "../SHARED/SuccessAlert";
 
 const AddProduct = () => {
-
-  const [textDescription, setTextDescription] = useState('')
+  const [textDescription, setTextDescription] = useState("");
+  const [toast, setToast] = useState(false);
 
   const imageBBKey = `565f41ae1e5b8cd4d1430014c0206ed2`;
 
@@ -31,23 +32,37 @@ const AddProduct = () => {
       body: formData,
     })
       .then((res) => res.json())
-      .then(async(result) => {
+      .then(async (result) => {
         const img = result?.data?.url;
-        const productObj = { name, img, description, price, quantity, minimum_order };
+        const productObj = {
+          name,
+          img,
+          description,
+          price,
+          quantity,
+          minimum_order,
+        };
 
-        const { data } = await axios.post(`http://localhost:5000/postProduct`, productObj);
+        const { data } = await axios.post(
+          `http://localhost:5000/postProduct`,
+          productObj
+        );
 
-        console.log('order posted', data)
-
-
+        if (data?.insertedId) {
+          setToast(true);
+          setTimeout(() => {
+            setToast(false);
+          }, 10000);
+        }
       });
   };
 
   return (
     <div>
+      {toast && <SuccessAlert message={'Added a New Product'}></SuccessAlert>}
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div class="grid xl:grid-cols-2 xl:gap-6">
+          <div class="grid xl:grid-cols-2 xl:gap-6 mt-[1rem]">
             <div class="relative z-0 w-full mb-6 group">
               <input
                 type="text"
@@ -171,7 +186,7 @@ const AddProduct = () => {
                 placeholder="Write Here"
                 required={true}
                 rows={4}
-                onChange={e => setTextDescription(e.target.value)}
+                onChange={(e) => setTextDescription(e.target.value)}
               />
             </div>
             <input

@@ -1,6 +1,9 @@
 import React from 'react';
 import CarouselComp from './CarouselComp';
 import HomePageTools from './HomePageTools';
+import LessStockProds from './LessStockProds';
+import MostSoldProds from './MostSoldProds';
+import ReviewPage from './ReviewPage';
 import SummaryComp from './SummaryComp';
 
 const HomePage = () => {
@@ -9,6 +12,9 @@ const HomePage = () => {
       <CarouselComp></CarouselComp>
       <SummaryComp></SummaryComp>
       <HomePageTools></HomePageTools>
+      <MostSoldProds></MostSoldProds>
+      <LessStockProds></LessStockProds>
+      <ReviewPage></ReviewPage>
     </div>
   );
 };

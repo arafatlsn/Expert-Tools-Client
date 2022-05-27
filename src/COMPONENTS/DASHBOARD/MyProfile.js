@@ -1,10 +1,13 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFireBase from "../FIREBASE/useFireBase";
+import SuccessAlert from "../SHARED/SuccessAlert";
 
 const MyProfile = () => {
   const { user } = useFireBase();
+
+  const [alert, setAlert] = useState(false);
 
   const {
     register,
@@ -21,7 +24,6 @@ const MyProfile = () => {
     const linkedIn = data.LinkedIn;
 
     const profileObj = { fullName, email, address, phone,  education, linkedIn }
-    console.log(profileObj)
     const url = `http://localhost:5000/users`;
 
     const func = async() => {
@@ -30,6 +32,12 @@ const MyProfile = () => {
           authorization: `Bearer ${email}`
         }
       });
+      if(data.modifiedCount){
+        setAlert(true)
+        setTimeout(() => {
+          setAlert(false)
+        }, 5000)
+      }
     }
 
     func()
@@ -39,9 +47,9 @@ const MyProfile = () => {
   };
 
   return (
-    <div>
+    <div>{alert && <SuccessAlert message={'Your Profile Updated'}></SuccessAlert>}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div class="relative z-0 w-full mb-6 group">
+        <div class="relative z-0 w-full mb-6 group mt-[1rem]">
           <input
             type="email"
             name="floating_email"
