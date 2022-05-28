@@ -49,8 +49,6 @@ const DashBoardPage = () => {
     verifyAdmin();
   }, [user]);
 
-  console.log(isAdmin);
-
   return (
     <div className="lg:flex">
       <div>

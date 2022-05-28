@@ -61,7 +61,7 @@ const FooterComp = () => {
       </div>
       <hr className="my-6 w-full border-gray-200 p-1 dark:border-gray-700 sm:mx-auto lg:my-8" />
       <div className="w-full sm:flex sm:items-center sm:justify-between">
-        <Footer.Copyright href="#" by="Flowbite™" year={2022} />
+        <Footer.Copyright href="#" by="Expert Tools™" year={2022} />
         <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <Footer.Icon
             href="https://www.facebook.com/arafat.hossan.lisan/"

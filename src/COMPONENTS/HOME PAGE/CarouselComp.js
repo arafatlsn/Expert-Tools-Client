@@ -11,8 +11,8 @@ const CarouselComp = () => {
             src="banner1.png"
             alt="..."
           />
-          <div className='absolute z-50 flex justify-items-center bottom-[15%] left-[42%] lg:left-[46%]'>
-            <h1 className='text-2xl text-primary font-bold'>hello world</h1>
+          <div className='absolute z-50 flex justify-items-center bottom-[10%] lg:left-[20%]'>
+            <h1 className='text-2xl text-center shadow-lg text-white font-bold'>Get 50% off gift wrap service with code GIFTWRAP50. Offered by Expert Tools</h1>
           </div>
         </div>
         <div className='w-[100%] h-[100%] relative'>
@@ -21,8 +21,8 @@ const CarouselComp = () => {
             src="banner2.jpg"
             alt="..."
           />
-          <div className='absolute z-50 flex justify-items-center bottom-[15%] left-[42%] lg:left-[46%]'>
-            <h1 className='text-2xl text-red-500 font-bold'>hello world</h1>
+          <div className='absolute z-50 flex justify-items-center bottom-[10%] lg:left-[20%]'>
+            <h1 className='text-2xl text-center shadow-lg text-white font-bold'>Get 50% off gift wrap service with code GIFTWRAP50. Offered by Expert Tools</h1>
           </div>
         </div>
       </Carousel>

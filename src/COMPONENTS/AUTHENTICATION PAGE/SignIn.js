@@ -59,8 +59,6 @@ const SignIn = () => {
     func();
   }
 
-  console.log(getEmail);
-
   return (
     <div className="lg:w-[50%] lg:h-[85vh] mx-auto bg-gradient-to-r from-[#FEEDD3] to-[#A0CBF5] px-[.5rem] lg:px-[5rem] py-[4rem] lg:mt-[1rem] rounded-xl">
       <div className="flex flex-col items-center">
