@@ -63,10 +63,12 @@ const CheckOutForm = ({ orderToolInfo }) => {
     });
 
     setErrorMsg(error?.message || "");
-    error && setErrorAlert(true)
-    setTimeout(() => {
-      setErrorAlert(false)
-    }, 5000)
+    if(error?.message){
+      error && setErrorAlert(true)
+      setTimeout(() => {
+        setErrorAlert(false)
+      }, 5000)
+    }
     // confirm card payment 
     const {paymentIntent, error: intentError} = await stripe.confirmCardPayment(
       clientSecret,

@@ -1,11 +1,15 @@
 import axios from 'axios';
-import React, { Children, useState } from 'react';
+import { useState } from 'react';
 import useFireBase from './useFireBase';
 
 const RequireAdmin = ({ children }) => {
 
-  const { user } = useFireBase()
+  const { user, loading } = useFireBase()
   const [isAdmin, setIsAdmin] = useState(false);
+
+  if(loading){
+    return;
+  }
 
   const verifyAdmin = async () => {
 

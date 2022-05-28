@@ -41,7 +41,7 @@ const MostSoldProds = () => {
       <h1 className="text-xl font-[600] text-green-400 mt-[2rem] mb-[1rem]">
         Most Sold Products
       </h1>
-      <div className='grid gap-[1rem] grid-cols-6'>
+      <div className='grid gap-[1rem] grid-cols-2 lg:grid-cols-6'>
         {
           allOrders.map(el => <MostSoldsCards el={el}></MostSoldsCards>)
         }

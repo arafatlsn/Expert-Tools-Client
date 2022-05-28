@@ -1,4 +1,4 @@
-import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from './Firebase.init';
 
 const useFireBase = () => {
@@ -27,7 +27,17 @@ const useFireBase = () => {
   // load user 
   const [user, loading, error] = useAuthState(auth);
 
-  return { signInWithGoogle, createUserWithEmailAndPassword, errorCreateEmailPass, updateProfile, signInWithEmailAndPassword, errorSignInEmailPass, user, loading }
+  // reset password 
+  const [sendPasswordResetEmail, sending, errorPasswordReset] = useSendPasswordResetEmail(
+    auth
+  );
+
+  // email verificationn 
+  const [sendEmailVerification, sendingVerification, errorVerificaton] = useSendEmailVerification(
+    auth
+  );
+
+  return { signInWithGoogle, createUserWithEmailAndPassword, errorCreateEmailPass, updateProfile, signInWithEmailAndPassword, errorSignInEmailPass, user, loading, sendPasswordResetEmail, sendEmailVerification, loadingSignInEmailPass, loadingCreateEmailPass }
 };
 
 export default useFireBase;

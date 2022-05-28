@@ -1,4 +1,5 @@
 import React from 'react';
+import SpinnerComp from '../SHARED/Spinner';
 import CarouselComp from './CarouselComp';
 import HomePageTools from './HomePageTools';
 import LessStockProds from './LessStockProds';

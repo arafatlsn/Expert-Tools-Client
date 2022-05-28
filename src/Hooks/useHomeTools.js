@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import SpinnerComp from '../COMPONENTS/SHARED/Spinner';
 
 const useHomeTools = () => {
 

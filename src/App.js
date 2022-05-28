@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignIn from './COMPONENTS/AUTHENTICATION PAGE/SignIn';
 import SignUp from './COMPONENTS/AUTHENTICATION PAGE/SignUp';
+import Blogs from './COMPONENTS/BLOGS/Blogs';
 import AddProduct from './COMPONENTS/DASHBOARD/AddProduct';
 import AddReview from './COMPONENTS/DASHBOARD/AddReview';
 import AllUsers from './COMPONENTS/DASHBOARD/AllUsers';
@@ -15,9 +16,12 @@ import RequireAdmin from './COMPONENTS/FIREBASE/RequireAdmin';
 import RequireAuth from './COMPONENTS/FIREBASE/RequireAuth';
 import FooterComp from './COMPONENTS/FOOTER/Footer';
 import HomePage from './COMPONENTS/HOME PAGE/HomePage';
+import MyPortfolio from './COMPONENTS/MY PORTFOLIO/MyPortfolio';
 import NavbarComp from './COMPONENTS/NAVBAR/NavbarComp';
 import NotFoundPage from './COMPONENTS/NotFoundPage';
 import PurChase from './COMPONENTS/PURCHASE PAGE/PurChase';
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -64,9 +68,12 @@ function App() {
                   </RequireAdmin>
                 }></Route>
             </Route>
+            <Route path='/blogs' element={<Blogs></Blogs>}></Route>
+            <Route path='/myportfolio' element={<MyPortfolio></MyPortfolio>}></Route>
             <Route path='*' element={<NotFoundPage></NotFoundPage>}></Route>
         </Routes>
         <FooterComp></FooterComp>
+        <ToastContainer />
     </div>
   );
 }

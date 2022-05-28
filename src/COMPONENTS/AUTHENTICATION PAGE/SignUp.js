@@ -4,20 +4,25 @@ import { FaSignInAlt } from "react-icons/fa";
 import { IoPeopleSharp } from "react-icons/io5";
 import { GrGoogle } from "react-icons/gr";
 import useFireBase from "../FIREBASE/useFireBase";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AlertToast from "../Toast/AlertToast";
 import ErrorComp from "../Error/ErrorComp";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { PulseLoader } from "react-spinners";
 
 const SignUp = () => {
   const {
     createUserWithEmailAndPassword,
     updateProfile,
     errorCreateEmailPass,
-    user
+    user,
+    sendEmailVerification,
+    loadingCreateEmailPass
   } = useFireBase();
 
   const [checked, setChecked] = useState(false);
+  const [getEmail, setGetEmail] = useState('')
 
   const {
     register,
@@ -29,10 +34,16 @@ const SignUp = () => {
     const name = data?.name;
     const email = data?.email;
     const password = data?.password;
-
+    setGetEmail(email)
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
+    sendEmailVerification(getEmail)
+    toast.success('Your Email Verification Sent Your Email.')
   };
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   if (user) {
     const userEmail = user.email;
@@ -44,18 +55,19 @@ const SignUp = () => {
         },
       });
       localStorage.setItem("jwt-token", JSON.stringify(data?.token));
+      navigate(from, { replace: true });
     };
 
     func();
   }
 
   return (
-    <div className="w-[50%] h-[80vh] mx-auto bg-gradient-to-r from-[#FEEDD3] to-[#A0CBF5] px-[5rem] py-[4rem] mt-[2rem] rounded-xl">
+    <div className="lg:w-[50%] lg:h-[80vh] mx-auto bg-gradient-to-r from-[#FEEDD3] to-[#A0CBF5] px-[.5rem] lg:px-[5rem] py-[4rem] lg:mt-[2rem] rounded-xl">
       <div className="flex flex-col items-center">
         <p className="text-center text-[#1B99E5]">
           <IoPeopleSharp className="text-[12rem]" />
         </p>
-        <h1 className="uppercase text-[2.6rem] text-[#1B99E5] font-bold my-[1rem]">
+        <h1 className="uppercase text-[1.6rem] lg:text-[2.6rem] text-[#1B99E5] font-bold my-[1rem]">
           create a new Account
         </h1>
       </div>
@@ -174,7 +186,11 @@ const SignUp = () => {
           className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%]"
           disabled={!checked}
         >
-          <FaSignInAlt className="mr-[.5rem]" /> SignUp
+          {
+            loadingCreateEmailPass ? <PulseLoader color={'white'} size={10} /> : <>
+            <FaSignInAlt className="mr-[.5rem]" />SignIn
+            </>
+          }
         </button>
       </form>
 

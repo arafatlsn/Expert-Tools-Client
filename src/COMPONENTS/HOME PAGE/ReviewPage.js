@@ -16,10 +16,10 @@ const ReviewPage = () => {
 
   return (
     <div className="pt-[2.5rem]">
-      <h1 className="text-5xl font-[600] text-center text-deepDark my-[2rem]">
+      <h1 className="text-4xl lg:text-5xl font-[600] text-center text-deepDark my-[2rem]">
         What Our Customers Says
       </h1>
-      <div className="grid grid-cols-3 gap-[1rem]">
+      <div className="grid lg:grid-cols-3 px-[.5rem] lg:px-[0] gap-[1rem]">
         {
           allReviews?.map(el => <ReviewCard el={el}></ReviewCard>)
         }

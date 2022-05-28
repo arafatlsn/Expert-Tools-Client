@@ -56,14 +56,14 @@ const DashBoardPage = () => {
     <div className="lg:flex">
       <div>
         <aside class="lg:w-64" aria-label="Sidebar">
-          <div class="overflow-y-auto py-4 px-3 rounded bg-[#FBFBFB] dark:bg-gray-800">
+          <div class="overflow-y-auto py-4 lg:px-3 rounded bg-[#FBFBFB] dark:bg-gray-800">
             <ul class="space-y-2">
               {!isAdmin && (
                 <>
                   <li>
                     <Link
                       to={"/dashboard/myorders"}
-                      class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                      class="flex items-center lg:p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       <span>
                         <HiShoppingCart className="text-[1.4rem] text-deepDark" />
@@ -147,7 +147,7 @@ const DashBoardPage = () => {
           </div>
         </aside>
       </div>
-      <div className="w-[60vw] mx-auto ml-[1rem]">
+      <div className="lg:w-[60vw] px-[.5rem] lg:px-0 mx-auto lg:ml-[1rem]">
         <Outlet></Outlet>
       </div>
     </div>

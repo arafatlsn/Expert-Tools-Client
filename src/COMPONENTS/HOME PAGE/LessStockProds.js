@@ -19,7 +19,7 @@ const LessStockProds = () => {
       <h1 className="text-xl font-[600] mt-[2rem] mb-[1rem] text-[#E73D50]">
         Less Stock Products
       </h1>
-      <div className='grid gap-[1rem] grid-cols-6'>
+      <div className='grid gap-[1rem] grid-cols-2 lg:grid-cols-6'>
         {
           lessStock?.map(el => <LessStockCard el={el}></LessStockCard>)
         }

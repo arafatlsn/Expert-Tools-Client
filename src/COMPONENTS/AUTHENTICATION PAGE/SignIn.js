@@ -4,9 +4,11 @@ import { FaSignInAlt } from "react-icons/fa";
 import { IoPeopleSharp } from "react-icons/io5";
 import { GrGoogle } from "react-icons/gr";
 import useFireBase from "../FIREBASE/useFireBase";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ErrorComp from "../Error/ErrorComp";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { PulseLoader } from "react-spinners";
 
 const SignIn = () => {
   const {
@@ -14,9 +16,17 @@ const SignIn = () => {
     signInWithEmailAndPassword,
     errorSignInEmailPass,
     user,
+    sendPasswordResetEmail,
+    loadingSignInEmailPass
   } = useFireBase();
 
   const [checked, setChecked] = useState(false);
+  const [getEmail, setGetEmail] = useState('')
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
 
   const {
     register,
@@ -27,7 +37,7 @@ const SignIn = () => {
   const onSubmit = (data) => {
     const email = data?.email;
     const password = data?.password;
-
+    setGetEmail(email)
     signInWithEmailAndPassword(email, password);
   };
 
@@ -41,18 +51,21 @@ const SignIn = () => {
         },
       });
       localStorage.setItem("jwt-token", JSON.stringify(data?.token));
+      navigate(from, { replace: true });
     };
 
     func();
   }
 
+  console.log(getEmail)
+
   return (
-    <div className="w-[50%] h-[80vh] mx-auto bg-gradient-to-r from-[#FEEDD3] to-[#A0CBF5] px-[5rem] py-[4rem] mt-[2rem] rounded-xl">
+    <div className="lg:w-[50%] lg:h-[85vh] mx-auto bg-gradient-to-r from-[#FEEDD3] to-[#A0CBF5] px-[.5rem] lg:px-[5rem] py-[4rem] lg:mt-[1rem] rounded-xl">
       <div className="flex flex-col items-center">
         <p className="text-center text-[#1B99E5]">
           <IoPeopleSharp className="text-[12rem]" />
         </p>
-        <h1 className="text-[3.5rem] text-[#1B99E5] font-bold">
+        <h1 className="text-[2.5rem] lg:text-[3.5rem] text-[#1B99E5] font-bold">
           Please SignIn
         </h1>
       </div>
@@ -75,18 +88,18 @@ const SignIn = () => {
               },
             })}
           />
-          {errors.email?.type === "required" && (
-            <span className="text-red-500">{errors.email?.message}</span>
-          )}
-          {errors.email?.type === "pattern" && (
-            <span className="text-red-500">{errors.email?.message}</span>
-          )}
           <label
             for="floating_email"
             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Email address
           </label>
+          {errors.email?.type === "required" && (
+            <span className="text-red-500">{errors.email?.message}</span>
+          )}
+          {errors.email?.type === "pattern" && (
+            <span className="text-red-500">{errors.email?.message}</span>
+          )}
         </div>
         <div class="relative z-0 w-full mb-6 group">
           <input
@@ -106,18 +119,22 @@ const SignIn = () => {
               },
             })}
           />
-          {errors.password?.type === "required" && (
-            <span className="text-red-500">{errors.password?.message}</span>
-          )}
-          {errors.password?.type === "minLength" && (
-            <span className="text-red-500">{errors.password?.message}</span>
-          )}
           <label
             for="floating_password"
             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             Password
           </label>
+          {errors.password?.type === "required" && (
+            <span className="text-red-500">{errors.password?.message}</span>
+          )}
+          {errors.password?.type === "minLength" && (
+            <span className="text-red-500">{errors.password?.message}</span>
+          )}
+          <p className="mt-[.5rem]">Forget Password? <span onClick={() => {
+            sendPasswordResetEmail(getEmail)
+            toast.success('Password reset Link sent your email')
+            }} className="text-blue-600 cursor-pointer">Reset</span></p>
         </div>
         <div class="grid xl:grid-cols-2 xl:gap-6"></div>
         <div class="flex items-center mb-4">
@@ -148,7 +165,11 @@ const SignIn = () => {
           className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%]"
           disabled={!checked}
         >
-          <FaSignInAlt className="mr-[.5rem]" /> SignIn
+          {
+            loadingSignInEmailPass ? <PulseLoader color={'white'} size={10} /> : <>
+            <FaSignInAlt className="mr-[.5rem]" />SignIn
+            </>
+          }
         </button>
       </form>
 

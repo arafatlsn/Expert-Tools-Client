@@ -161,8 +161,7 @@ const PurchaseModal = ({
                   )}
                 </div>
               </div>
-              <div class="grid xl:grid-cols-2 xl:gap-6"></div>
-              <div className="flex">
+              <div className="lg:flex">
                 <div className="grid grid-cols-12 items-center justify-items-center w-[60%]">
                   <div className="col-start-1 col-end-4">
                     <img

@@ -92,7 +92,7 @@ const MyOrders = () => {
                   <td class="px-6 py-4">{el.paymentStatus}</td>
                   <td class="px-6 py-4 text-right">
                     {el.paymentStatus === "Not Paid" && (
-                      <div>
+                      <div className="flex">
                         <button
                           onClick={() =>
                             cancelOrder(el._id, el.toolId, el.orderQuantity)

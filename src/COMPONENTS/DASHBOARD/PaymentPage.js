@@ -32,11 +32,11 @@ const PaymentPage = () => {
 
 
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid lg:grid-cols-2 px-[.5rem] lg:px-0 ">
       <div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-[1rem]">
           <img
-            className="w-[538px] h-[538px] object-contain"
+            className="w-[220px] lg:w-[538px] h-[220px] lg:h-[538px] object-contain"
             src={img}
             alt=""
           />

@@ -13,7 +13,7 @@ const FooterComp = () => {
   return (
     <Footer className="flex flex-col mt-[5rem] bg-[#EEEEEE]">
       <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-        <div className="flex items-center">
+        <div className="flex items-center mb-[2.5rem]">
           <img className="w-[60px] object-contain mr-3" src={logoImg} alt="" />
           <h1 className="text-[1.5rem] font-bold">EXPERT TOOLS</h1>
         </div>

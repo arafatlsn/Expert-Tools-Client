@@ -9,6 +9,7 @@ import useFireBase from '../FIREBASE/useFireBase';
 import { signOut } from 'firebase/auth';
 import auth from '../FIREBASE/Firebase.init';
 import SuccessAlert from '../SHARED/SuccessAlert';
+import SpinnerComp from '../SHARED/Spinner';
 
 const PurChase = () => {
 
@@ -57,7 +58,7 @@ const PurChase = () => {
   }
 
   if(isLoading){
-    return;
+    return <div className='h-[100vh]'><SpinnerComp></SpinnerComp></div>;
   }
 
   const { img, name, description, quantity, minimum_order, price } = tool;
@@ -78,9 +79,9 @@ const PurChase = () => {
 
   return (
     <div>{alert && <SuccessAlert message={'Orderd an Item'}></SuccessAlert>}
-      <div className='grid grid-cols-2 border p-[3rem]'>
+      <div className='grid lg:grid-cols-2 border p-[.5rem] lg:p-[3rem]'>
         <div className='flex justify-center'>
-          <img className='w-[538px] h-[538px] object-contain' src={img} alt="" />
+          <img className='w-[220px] lg:w-[538px] h-[220px] lg:h-[538px] object-contain mb-[1rem] lg:mb-0' src={img} alt="" />
         </div>
         <div>
           <h1 className='bg-[#DAF0D8] px-[1rem] py-[.7rem]'>{name}</h1>
@@ -110,11 +111,10 @@ const PurChase = () => {
               }
             
             
-            }} type="number" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-            defaultValue={minimum_order}
+            }} type="number" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="  "
               />
 
-              <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">How Much You Want?</label>
+              <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Order Between: {minimum_order} to {quantity}</label>
 
               {
                 getError && <span className='text-red-500 capitalize'>You Can order {minimum_order} to {quantity}</span>

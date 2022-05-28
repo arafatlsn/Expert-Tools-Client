@@ -40,11 +40,11 @@ const NavbarComp = () => {
             DashBoard
           </Link>
           }
-          <Link to={'/'} className='font-bold text-xl' href="/navbars">
-            Services
+          <Link to={'/blogs'} className='font-bold text-xl' href="/navbars">
+            Blogs
           </Link>
-          <Link to={'/'} className='font-bold text-xl' href="/navbars">
-            Pricing
+          <Link to={'/myportfolio'} className='font-bold text-xl' href="/navbars">
+            My Portfolio
           </Link>
 
           {
