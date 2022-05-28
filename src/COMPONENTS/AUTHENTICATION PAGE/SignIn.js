@@ -17,16 +17,15 @@ const SignIn = () => {
     errorSignInEmailPass,
     user,
     sendPasswordResetEmail,
-    loadingSignInEmailPass
+    loadingSignInEmailPass,
   } = useFireBase();
 
   const [checked, setChecked] = useState(false);
-  const [getEmail, setGetEmail] = useState('')
+  const [getEmail, setGetEmail] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
-
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -37,7 +36,7 @@ const SignIn = () => {
   const onSubmit = (data) => {
     const email = data?.email;
     const password = data?.password;
-    setGetEmail(email)
+    setGetEmail(email);
     signInWithEmailAndPassword(email, password);
   };
 
@@ -45,11 +44,14 @@ const SignIn = () => {
     const userEmail = user.email;
 
     const func = async () => {
-      const { data } = await axios.get(`http://localhost:5000/users`, {
-        headers: {
-          authorization: `Bearer ${userEmail}`,
-        },
-      });
+      const { data } = await axios.get(
+        `https://enigmatic-crag-73288.herokuapp.com/users`,
+        {
+          headers: {
+            authorization: `Bearer ${userEmail}`,
+          },
+        }
+      );
       localStorage.setItem("jwt-token", JSON.stringify(data?.token));
       navigate(from, { replace: true });
     };
@@ -57,7 +59,7 @@ const SignIn = () => {
     func();
   }
 
-  console.log(getEmail)
+  console.log(getEmail);
 
   return (
     <div className="lg:w-[50%] lg:h-[85vh] mx-auto bg-gradient-to-r from-[#FEEDD3] to-[#A0CBF5] px-[.5rem] lg:px-[5rem] py-[4rem] lg:mt-[1rem] rounded-xl">
@@ -131,10 +133,18 @@ const SignIn = () => {
           {errors.password?.type === "minLength" && (
             <span className="text-red-500">{errors.password?.message}</span>
           )}
-          <p className="mt-[.5rem]">Forget Password? <span onClick={() => {
-            sendPasswordResetEmail(getEmail)
-            toast.success('Password reset Link sent your email')
-            }} className="text-blue-600 cursor-pointer">Reset</span></p>
+          <p className="mt-[.5rem]">
+            Forget Password?{" "}
+            <span
+              onClick={() => {
+                sendPasswordResetEmail(getEmail);
+                toast.success("Password reset Link sent your email");
+              }}
+              className="text-blue-600 cursor-pointer"
+            >
+              Reset
+            </span>
+          </p>
         </div>
         <div class="grid xl:grid-cols-2 xl:gap-6"></div>
         <div class="flex items-center mb-4">
@@ -165,11 +175,14 @@ const SignIn = () => {
           className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%]"
           disabled={!checked}
         >
-          {
-            loadingSignInEmailPass ? <PulseLoader color={'white'} size={10} /> : <>
-            <FaSignInAlt className="mr-[.5rem]" />SignIn
+          {loadingSignInEmailPass ? (
+            <PulseLoader color={"white"} size={10} />
+          ) : (
+            <>
+              <FaSignInAlt className="mr-[.5rem]" />
+              SignIn
             </>
-          }
+          )}
         </button>
       </form>
 

@@ -18,11 +18,11 @@ const SignUp = () => {
     errorCreateEmailPass,
     user,
     sendEmailVerification,
-    loadingCreateEmailPass
+    loadingCreateEmailPass,
   } = useFireBase();
 
   const [checked, setChecked] = useState(false);
-  const [getEmail, setGetEmail] = useState('')
+  const [getEmail, setGetEmail] = useState("");
 
   const {
     register,
@@ -34,26 +34,29 @@ const SignUp = () => {
     const name = data?.name;
     const email = data?.email;
     const password = data?.password;
-    setGetEmail(email)
+    setGetEmail(email);
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
-    sendEmailVerification(getEmail)
-    toast.success('Your Email Verification Sent Your Email.')
+    sendEmailVerification(getEmail);
+    toast.success("Your Email Verification Sent Your Email.");
   };
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
 
   if (user) {
     const userEmail = user.email;
 
     const func = async () => {
-      const { data } = await axios.get(`http://localhost:5000/users`, {
-        headers: {
-          authorization: `Bearer ${userEmail}`,
-        },
-      });
+      const { data } = await axios.get(
+        `https://enigmatic-crag-73288.herokuapp.com/users`,
+        {
+          headers: {
+            authorization: `Bearer ${userEmail}`,
+          },
+        }
+      );
       localStorage.setItem("jwt-token", JSON.stringify(data?.token));
       navigate(from, { replace: true });
     };
@@ -186,11 +189,14 @@ const SignUp = () => {
           className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%]"
           disabled={!checked}
         >
-          {
-            loadingCreateEmailPass ? <PulseLoader color={'white'} size={10} /> : <>
-            <FaSignInAlt className="mr-[.5rem]" />SignIn
+          {loadingCreateEmailPass ? (
+            <PulseLoader color={"white"} size={10} />
+          ) : (
+            <>
+              <FaSignInAlt className="mr-[.5rem]" />
+              SignIn
             </>
-          }
+          )}
         </button>
       </form>
 

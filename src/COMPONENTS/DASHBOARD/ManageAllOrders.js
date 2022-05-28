@@ -5,13 +5,11 @@ import useFireBase from "../FIREBASE/useFireBase";
 import PendingHandleModla from "../SHARED/PendingHandleModla";
 import SuccessAlert from "../SHARED/SuccessAlert";
 
-
 const ManageAllOrders = () => {
-
   const [showModal, setShowModal] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("");
-  const [orderId, setOrderId] = useState('');
-  const [toolId, setTooldId] = useState('');
+  const [orderId, setOrderId] = useState("");
+  const [toolId, setTooldId] = useState("");
   const [orderQuantity, setOrderQuantity] = useState(0);
   const [alert, setAlert] = useState(false);
   const [alertCancel, setAlertCancel] = useState(false);
@@ -21,38 +19,44 @@ const ManageAllOrders = () => {
     isLoading,
     refetch: allOrdersReFetch,
   } = useQuery("myOrders", async () => {
-    const { data } = await axios.get(`http://localhost:5000/allorders`);
+    const { data } = await axios.get(
+      `https://enigmatic-crag-73288.herokuapp.com/allorders`
+    );
     return data;
   });
 
   const cancelOrder = async () => {
-    const url = `http://localhost:5000/removeorder?toolId=${orderId}&prodId=${toolId}&orderCancelQantity=${orderQuantity}`;
+    const url = `https://enigmatic-crag-73288.herokuapp.com/removeorder?toolId=${orderId}&prodId=${toolId}&orderCancelQantity=${orderQuantity}`;
     const { data } = await axios.delete(url);
     if (data.deletedCount) {
       allOrdersReFetch();
-      setAlertCancel(true)
+      setAlertCancel(true);
       setTimeout(() => {
-        setAlertCancel(false)
-      }, 5000)
+        setAlertCancel(false);
+      }, 5000);
     }
   };
 
-  const makeShipped = async() => {
-    const url = `http://localhost:5000/makeshipped?orderId=${orderId}`;
+  const makeShipped = async () => {
+    const url = `https://enigmatic-crag-73288.herokuapp.com/makeshipped?orderId=${orderId}`;
     const { data } = await axios.put(url);
-    if(data?.modifiedCount){
+    if (data?.modifiedCount) {
       allOrdersReFetch();
-      setAlert(true)
+      setAlert(true);
       setTimeout(() => {
-        setAlert(false)
-      }, 5000)
+        setAlert(false);
+      }, 5000);
     }
-  }
+  };
 
   return (
     <div>
-      {alert && <SuccessAlert message={'Changed Status to Shipped'}></SuccessAlert>}
-      {alertCancel && <SuccessAlert message={'Cancelled an Unpaid Order'}></SuccessAlert>}
+      {alert && (
+        <SuccessAlert message={"Changed Status to Shipped"}></SuccessAlert>
+      )}
+      {alertCancel && (
+        <SuccessAlert message={"Cancelled an Unpaid Order"}></SuccessAlert>
+      )}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -106,28 +110,28 @@ const ManageAllOrders = () => {
                   <td class="px-6 py-4">{el.paymentStatus}</td>
                   <td class="px-6 py-4 text-right">
                     <div>
-                      {
-                        !el.shipped ? <button
-                        onClick={() => {
-                          setShowModal(true);
-                          setPaymentStatus(el.paymentStatus);
-                          setOrderId(el._id);
-                          setTooldId(el.toolId)
-                          setOrderQuantity(el.orderQuantity)
-
-
-                        }}
-                        type="button"
-                        class="px-3 py-2 text-xs font-medium text-center text-white bg-yellow-300 rounded-lg hover:bg-yellow-400 mr-[.5rem]"
-                      >
-                        Pending
-                      </button> : <p
-                        type="button"
-                        class="px-3 py-2 text-xs font-medium text-center text-white font-bold text-lg text-green-500 mr-[.5rem]"
-                      >
-                        Shipped
-                      </p>
-                      }
+                      {!el.shipped ? (
+                        <button
+                          onClick={() => {
+                            setShowModal(true);
+                            setPaymentStatus(el.paymentStatus);
+                            setOrderId(el._id);
+                            setTooldId(el.toolId);
+                            setOrderQuantity(el.orderQuantity);
+                          }}
+                          type="button"
+                          class="px-3 py-2 text-xs font-medium text-center text-white bg-yellow-300 rounded-lg hover:bg-yellow-400 mr-[.5rem]"
+                        >
+                          Pending
+                        </button>
+                      ) : (
+                        <p
+                          type="button"
+                          class="px-3 py-2 text-xs font-medium text-center text-white font-bold text-lg text-green-500 mr-[.5rem]"
+                        >
+                          Shipped
+                        </p>
+                      )}
                     </div>
                   </td>
                 </tr>

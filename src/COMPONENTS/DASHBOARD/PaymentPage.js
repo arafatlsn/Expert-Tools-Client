@@ -19,7 +19,7 @@ const PaymentPage = () => {
 
   const { data: orderToolInfo, isLoading } = useQuery("order", async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/paymentorder?toolId=${id}`
+      `https://enigmatic-crag-73288.herokuapp.com/paymentorder?toolId=${id}`
     );
     return data;
   });
@@ -28,8 +28,16 @@ const PaymentPage = () => {
     return;
   }
 
-  const { img, name, fullName, orderQuantity, paymentStatus, price, phoneNumber, address } = orderToolInfo;
-
+  const {
+    img,
+    name,
+    fullName,
+    orderQuantity,
+    paymentStatus,
+    price,
+    phoneNumber,
+    address,
+  } = orderToolInfo;
 
   return (
     <div className="grid lg:grid-cols-2 px-[.5rem] lg:px-0 ">
@@ -53,7 +61,9 @@ const PaymentPage = () => {
           <p>Phone: {phoneNumber}</p>
           <hr className="my-[1rem]" />
           <p style={{ color: "rgba(48, 56, 65, .9)" }}>
-            <span style={{ color: "rgba(60, 196, 114, 1)" }}>Order Amount: </span>
+            <span style={{ color: "rgba(60, 196, 114, 1)" }}>
+              Order Amount:{" "}
+            </span>
             {orderQuantity}
           </p>
           <p className="text-base" style={{ color: "rgba(48, 56, 65, .9)" }}>
@@ -66,8 +76,7 @@ const PaymentPage = () => {
           </h3>
           <p className="underline text-[#E73D50] mb-[.3rem]">Payment Method:</p>
           <div>
-            <div>
-            </div>
+            <div></div>
           </div>
         </div>
         <Elements stripe={stripePromise}>

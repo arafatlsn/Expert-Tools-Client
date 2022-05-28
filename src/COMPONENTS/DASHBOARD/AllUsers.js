@@ -2,40 +2,46 @@ import axios from "axios";
 import { Button } from "flowbite-react";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import ConfirmModal from '../SHARED/ConfirmModal'
+import ConfirmModal from "../SHARED/ConfirmModal";
 import SuccessAlert from "../SHARED/SuccessAlert";
 
 const AllUsers = () => {
-
-  const [ confirmModal, setConfirmModal ] = useState(false);
-  const [ makeAdminId, setAdminId ] = useState('')
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [makeAdminId, setAdminId] = useState("");
   const [alert, setAlert] = useState(false);
 
-  const { data: allusers, isLoading, refetch: allUsersFetch } = useQuery('users', async() => {
-    const { data } = await axios.get('http://localhost:5000/allusers');
-    return data
-  })
+  const {
+    data: allusers,
+    isLoading,
+    refetch: allUsersFetch,
+  } = useQuery("users", async () => {
+    const { data } = await axios.get(
+      "https://enigmatic-crag-73288.herokuapp.com/allusers"
+    );
+    return data;
+  });
 
-  if(isLoading){
+  if (isLoading) {
     return;
   }
 
-  const makeAdmin = async() => {
+  const makeAdmin = async () => {
+    const { data } = await axios.put(
+      `https://enigmatic-crag-73288.herokuapp.com/makeadmin?adminId=${makeAdminId}`
+    );
 
-    const { data } = await axios.put(`http://localhost:5000/makeadmin?adminId=${makeAdminId}`);
-    
-    if(data.modifiedCount){
-      allUsersFetch()
-      setAlert(true)
+    if (data.modifiedCount) {
+      allUsersFetch();
+      setAlert(true);
       setTimeout(() => {
-        setAlert(false)
-      }, 5000)
+        setAlert(false);
+      }, 5000);
     }
-
-  }
+  };
 
   return (
-    <div>{alert && <SuccessAlert message={'Made an Admin'}></SuccessAlert>}
+    <div>
+      {alert && <SuccessAlert message={"Made an Admin"}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -77,21 +83,27 @@ const AllUsers = () => {
                     scope="row"
                     class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                   >
-                    {el.fullName || 'Not Updated Yet'}
+                    {el.fullName || "Not Updated Yet"}
                   </th>
                   <td class="px-6 py-4">{el.email}</td>
+                  <td class="px-6 py-4">{el.address || "Not Updated Yet"}</td>
                   <td class="px-6 py-4">
-                    {el.address || 'Not Updated Yet'}
+                    {el.role === "Admin" ? "Admin" : "User"}
                   </td>
-                  <td class="px-6 py-4">{el.role === 'Admin' ? 'Admin' : 'User'}</td>
                   <td class="px-6 py-4 text-right">
-                    {el.role === 'Admin' || <button 
-                    onClick={() => {
-                      setAdminId(el._id)
-                      setConfirmModal(true)
-                    }}
-                    type="button" class="px-3 py-2 text-xs font-medium text-center text-white
-                    bg-green-500 hover:bg-green-600 rounded-lg">Make Admin</button>}
+                    {el.role === "Admin" || (
+                      <button
+                        onClick={() => {
+                          setAdminId(el._id);
+                          setConfirmModal(true);
+                        }}
+                        type="button"
+                        class="px-3 py-2 text-xs font-medium text-center text-white
+                    bg-green-500 hover:bg-green-600 rounded-lg"
+                      >
+                        Make Admin
+                      </button>
+                    )}
                   </td>
                 </tr>
               );
@@ -99,9 +111,12 @@ const AllUsers = () => {
           </tbody>
         </table>
       </div>
-      {
-        confirmModal && <ConfirmModal setConfirmModal={setConfirmModal} clickAction={makeAdmin} ></ConfirmModal>
-      }
+      {confirmModal && (
+        <ConfirmModal
+          setConfirmModal={setConfirmModal}
+          clickAction={makeAdmin}
+        ></ConfirmModal>
+      )}
     </div>
   );
 };

@@ -16,7 +16,7 @@ const MyOrders = () => {
     refetch: myOrdersReFetch,
   } = useQuery("myOrders", async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/myorders?userEmail=${user.email}`
+      `https://enigmatic-crag-73288.herokuapp.com/myorders?userEmail=${user.email}`
     );
     return data;
   });
@@ -26,19 +26,20 @@ const MyOrders = () => {
   }
 
   const cancelOrder = async (orderId, toolId, orderQuantity) => {
-    const url = `http://localhost:5000/removeorder?toolId=${orderId}&prodId=${toolId}&orderCancelQantity=${orderQuantity}`;
+    const url = `https://enigmatic-crag-73288.herokuapp.com/removeorder?toolId=${orderId}&prodId=${toolId}&orderCancelQantity=${orderQuantity}`;
     const { data } = await axios.delete(url);
     if (data.deletedCount) {
       myOrdersReFetch();
       setAlert(true);
       setTimeout(() => {
-        setAlert(false)
-      }, 5000)
+        setAlert(false);
+      }, 5000);
     }
   };
 
   return (
-    <div>{alert && <SuccessAlert message={'Canceled an Order'}></SuccessAlert>}
+    <div>
+      {alert && <SuccessAlert message={"Canceled an Order"}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

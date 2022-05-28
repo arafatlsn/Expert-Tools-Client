@@ -19,7 +19,7 @@ const DashBoardPage = () => {
     // verify jwt
     const func = async () => {
       try {
-        const url = `http://localhost:5000/verify`;
+        const url = `https://enigmatic-crag-73288.herokuapp.com/verify`;
         const { data } = await axios.get(url, {
           headers: {
             authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
@@ -38,16 +38,15 @@ const DashBoardPage = () => {
     // verify admin
     const verifyAdmin = async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/verifyadmin?userEmail=${user.email}`
+        `https://enigmatic-crag-73288.herokuapp.com/verifyadmin?userEmail=${user.email}`
       );
-      if ( data?.message === "Admin" ) {
+      if (data?.message === "Admin") {
         setIsAdmin(true);
       } else {
         setIsAdmin(false);
       }
     };
     verifyAdmin();
-    
   }, [user]);
 
   console.log(isAdmin);
@@ -95,7 +94,7 @@ const DashBoardPage = () => {
                   <span class="ml-3 text-deepDark">My Profile</span>
                 </Link>
               </li>
-              { isAdmin && (
+              {isAdmin && (
                 <>
                   <li>
                     <Link

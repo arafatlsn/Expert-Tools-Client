@@ -44,7 +44,7 @@ const AddProduct = () => {
         };
 
         const { data } = await axios.post(
-          `http://localhost:5000/postProduct`,
+          `https://enigmatic-crag-73288.herokuapp.com/postProduct`,
           productObj
         );
 
@@ -59,7 +59,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      {toast && <SuccessAlert message={'Added a New Product'}></SuccessAlert>}
+      {toast && <SuccessAlert message={"Added a New Product"}></SuccessAlert>}
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div class="grid xl:grid-cols-2 xl:gap-6 mt-[1rem]">

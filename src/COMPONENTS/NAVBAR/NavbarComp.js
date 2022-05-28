@@ -11,7 +11,7 @@ const NavbarComp = () => {
   const { user } = useFireBase();
 
   return (
-    <div className='py-[1rem] sticky top-0 z-50 bg-white'>
+    <div className='py-[.3rem] sticky top-0 z-50 bg-white'>
       <Navbar
         fluid={true}
         rounded={true}
@@ -19,7 +19,7 @@ const NavbarComp = () => {
         <Link to={'/'} className='flex items-center'>
           <img
             src={Logo}
-            className="mr-3 h-6 sm:h-9"
+            className="mr-3 h-[55px] w-[55px] object-contain"
             alt="Logo"
           />
           <span className="text-deepDark uppercase self-center whitespace-nowrap text-2xl font-[700] font-semibold dark:text-white">

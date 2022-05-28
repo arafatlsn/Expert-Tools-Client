@@ -5,8 +5,10 @@ import ReviewCard from "./ReviewCard";
 
 const ReviewPage = () => {
   const { data: allReviews, isLoading } = useQuery("reviews", async () => {
-    const { data } = await axios.get(`http://localhost:5000/reviews`);
-    
+    const { data } = await axios.get(
+      `https://enigmatic-crag-73288.herokuapp.com/reviews`
+    );
+
     return data;
   });
 
@@ -20,9 +22,9 @@ const ReviewPage = () => {
         What Our Customers Says
       </h1>
       <div className="grid lg:grid-cols-3 px-[.5rem] lg:px-[0] gap-[1rem]">
-        {
-          allReviews?.map(el => <ReviewCard el={el}></ReviewCard>)
-        }
+        {allReviews?.map((el) => (
+          <ReviewCard el={el}></ReviewCard>
+        ))}
       </div>
     </div>
   );

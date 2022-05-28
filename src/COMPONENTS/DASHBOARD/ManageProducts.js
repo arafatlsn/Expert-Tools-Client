@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { BsTrash } from 'react-icons/bs'
+import { BsTrash } from "react-icons/bs";
 import ConfirmModal from "../SHARED/ConfirmModal";
 import SuccessAlert from "../SHARED/SuccessAlert";
 
 const ManageProducts = () => {
-
-  const [confirmModal, setConfirmModal] = useState(false)
-  const [toolId, setTooldId] = useState('');
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [toolId, setTooldId] = useState("");
   const [alert, setAlert] = useState(false);
 
   const {
@@ -16,7 +15,9 @@ const ManageProducts = () => {
     isLoading,
     refetch: allProductsFetch,
   } = useQuery("allProducts", async () => {
-    const { data } = await axios.get(`http://localhost:5000/tools`);
+    const { data } = await axios.get(
+      `https://enigmatic-crag-73288.herokuapp.com/tools`
+    );
     return data;
   });
 
@@ -24,19 +25,22 @@ const ManageProducts = () => {
     return;
   }
 
-  const removeProduct = async() => {
-    const { data } = await axios.delete(`http://localhost:5000/removetool?toold=${toolId}`);
-    if(data?.deletedCount){
-      allProductsFetch()
-      setAlert(true)
+  const removeProduct = async () => {
+    const { data } = await axios.delete(
+      `https://enigmatic-crag-73288.herokuapp.com/removetool?toold=${toolId}`
+    );
+    if (data?.deletedCount) {
+      allProductsFetch();
+      setAlert(true);
       setTimeout(() => {
-        setAlert(false)
-      }, 5000)
+        setAlert(false);
+      }, 5000);
     }
-  }
+  };
 
   return (
-    <div>{alert && <SuccessAlert message={'Remove a Product'}></SuccessAlert>}
+    <div>
+      {alert && <SuccessAlert message={"Remove a Product"}></SuccessAlert>}
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-[100%] text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -86,13 +90,13 @@ const ManageProducts = () => {
                   <td class="px-6 py-4">{el.paymentStatus}</td>
                   <td class="px-6 py-4 text-right">
                     <button
-                      onClick={() =>{ 
-                        setConfirmModal(true)
-                        setTooldId(el._id)
+                      onClick={() => {
+                        setConfirmModal(true);
+                        setTooldId(el._id);
                       }}
                       class="px-3 py-2 text-xs font-medium text-center text-white bg-red-200 rounded-lg hover:bg-red-300 mr-[.5rem]"
                     >
-                      <BsTrash className="text-xl text-red-500"/>
+                      <BsTrash className="text-xl text-red-500" />
                     </button>
                   </td>
                 </tr>
@@ -101,9 +105,12 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
-      {
-        confirmModal && <ConfirmModal setConfirmModal={setConfirmModal} clickAction={removeProduct} ></ConfirmModal>
-      }
+      {confirmModal && (
+        <ConfirmModal
+          setConfirmModal={setConfirmModal}
+          clickAction={removeProduct}
+        ></ConfirmModal>
+      )}
     </div>
   );
 };

@@ -14,8 +14,7 @@ const MyProfile = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = data => {
-
+  const onSubmit = (data) => {
     const fullName = data.fullName;
     const email = data.emailAddress;
     const address = data.address;
@@ -23,31 +22,29 @@ const MyProfile = () => {
     const education = data.education;
     const linkedIn = data.LinkedIn;
 
-    const profileObj = { fullName, email, address, phone,  education, linkedIn }
-    const url = `http://localhost:5000/users`;
+    const profileObj = { fullName, email, address, phone, education, linkedIn };
+    const url = `https://enigmatic-crag-73288.herokuapp.com/users`;
 
-    const func = async() => {
+    const func = async () => {
       const { data } = await axios.put(url, profileObj, {
         headers: {
-          authorization: `Bearer ${email}`
-        }
+          authorization: `Bearer ${email}`,
+        },
       });
-      if(data.modifiedCount){
-        setAlert(true)
+      if (data.modifiedCount) {
+        setAlert(true);
         setTimeout(() => {
-          setAlert(false)
-        }, 5000)
+          setAlert(false);
+        }, 5000);
       }
-    }
+    };
 
-    func()
-    
-    
-
+    func();
   };
 
   return (
-    <div>{alert && <SuccessAlert message={'Your Profile Updated'}></SuccessAlert>}
+    <div>
+      {alert && <SuccessAlert message={"Your Profile Updated"}></SuccessAlert>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div class="relative z-0 w-full mb-6 group mt-[1rem]">
           <input
@@ -196,14 +193,18 @@ const MyProfile = () => {
             </label>
 
             {errors.LinkedIn?.type === "required" && (
-              <span className="text-red-500">
-                {errors.LinkedIn?.message}
-              </span>
+              <span className="text-red-500">{errors.LinkedIn?.message}</span>
             )}
           </div>
         </div>
         <div class="grid xl:grid-cols-2 xl:gap-6"></div>
-        <button type="submit" className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%] uppercase"> Update</button>
+        <button
+          type="submit"
+          className="flex items-center justify-center btn font-bold text-[1.2rem] text-white bg-[#1B99E5] py-[.7rem] w-[100%] uppercase"
+        >
+          {" "}
+          Update
+        </button>
       </form>
     </div>
   );

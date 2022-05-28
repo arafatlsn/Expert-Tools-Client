@@ -23,11 +23,11 @@ const FooterComp = () => {
               About
             </h2>
             <Footer.LinkGroup className="flex-col">
-              <Footer.Link className="mb-4" href="#">
-                Flowbite
+              <Footer.Link className="mb-4">
+                Expert Tools
               </Footer.Link>
-              <Footer.Link className="mb-4" href="#">
-                Tailwind CSS
+              <Footer.Link className="mb-4">
+                About Me
               </Footer.Link>
             </Footer.LinkGroup>
           </div>
@@ -36,10 +36,10 @@ const FooterComp = () => {
               Follow us
             </h2>
             <Footer.LinkGroup className="flex-col">
-              <Footer.Link className="mb-4" href="#">
-                Gihub
+              <Footer.Link className="mb-4">
+                Gitub
               </Footer.Link>
-              <Footer.Link className="mb-4" href="#">
+              <Footer.Link className="mb-4">
                 Discord
               </Footer.Link>
             </Footer.LinkGroup>
@@ -64,27 +64,25 @@ const FooterComp = () => {
         <Footer.Copyright href="#" by="Flowbite™" year={2022} />
         <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
           <Footer.Icon
-            href="#"
+            href="https://www.facebook.com/arafat.hossan.lisan/"
             className="text-gray-400 hover:text-gray-900"
             icon={BsFacebook}
           />
           <Footer.Icon
-            href="#"
+            href="https://www.instagram.com/arafatlsn/"
             className="text-gray-400 hover:text-gray-900"
             icon={BsInstagram}
           />
           <Footer.Icon
-            href="#"
             className="text-gray-400 hover:text-gray-900"
             icon={BsTwitter}
           />
           <Footer.Icon
-            href="#"
+            href="https://github.com/arafatlsn"
             className="text-gray-400 hover:text-gray-900"
             icon={BsGithub}
           />
           <Footer.Icon
-            href="#"
             className="text-gray-400 hover:text-gray-900"
             icon={BsDribbble}
           />
